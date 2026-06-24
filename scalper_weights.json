@@ -1,21 +1,26 @@
 {
-  "momentum": 17.299784273456332,
-  "volume": 50.0,
-  "institutional": 50.0,
-  "vwap_slope": 43.24946068364084,
-  "atr_bonus": 43.24946068364084,
-  "mean_reversion": 43.24946068364084,
-  "trend_filter": 50.0,
-  "price_rising": 50.0,
-  "rsi_filter": 25.949676410184505,
-  "volatility_gate": 34.599568546912664,
+  "momentum": 3.404486622112097,
+  "volume": 25.533649665840727,
+  "institutional": 34.04486622112096,
+  "vwap_slope": 8.51121655528024,
+  "atr_bonus": 8.51121655528024,
+  "mean_reversion": 8.51121655528024,
+  "trend_filter": 17.02243311056048,
+  "price_rising": 13.617946488448387,
+  "rsi_filter": 5.106729933168146,
+  "volatility_gate": 6.808973244224194,
   "_meta": {
-    "train_timestamp": "2026-06-22T09:40:23.809562",
-    "buffer_total": 378,
-    "buffer_win_rate": 0.894,
+    "train_timestamp": "2026-06-24T14:05:06.638024",
+    "buffer_total": 1031,
+    "buffer_win_rate": 0.508,
     "sources": {
-      "backtest": 377,
-      "market_context": 1
+      "backtest": 580,
+      "market_context": 1,
+      "scan_pick": 31,
+      "ai_scan": 320,
+      "live_entry": 71,
+      "consciousness": 5,
+      "live_trade": 23
     }
   }
 }
