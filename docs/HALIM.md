@@ -78,6 +78,18 @@ Full policy: [HALIM_GUARDRAILS.md](HALIM_GUARDRAILS.md)
 
 APIs and live internet = **tools Halim consumes**, not Halim's brain (owned weights are the brain).
 
+### Google AI search (enabled)
+
+Halim may **google** a topic and read only the **public AI Overview** box on Google Search (like AI mode in the browser) — **not** the Gemini API, **not** visiting result links:
+
+```bash
+./scripts/halim_google_search.sh "what is an egg"
+```
+
+- Max **50 searches/day**
+- Only `google.com/search?q=...`
+- `links_followed: 0` always
+
 ## Related
 
 - [OWNED_BRAIN.md](OWNED_BRAIN.md) — technical flywheel (evolution, git, Telegram)

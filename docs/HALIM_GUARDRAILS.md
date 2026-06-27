@@ -90,14 +90,21 @@ ok, reason = gate_api_call("market_data", cfg, url="...")
 
 Purposes allowlisted in constitution. Daily cap default: **500 API calls**.
 
-## Web (live internet)
+## Web (Google AI search only — operator enabled)
 
-Off by default. Allowlist hosts in constitution (GitHub, SEC, Yahoo finance, etc.).
+**Not general browsing.** Halim may only:
 
-```python
-from core.halim_guardrails import gate_web_fetch
-ok, reason = gate_web_fetch("https://api.github.com/...", cfg)
+1. Send one `google.com/search?q=YOUR_QUERY` request
+2. Parse the **public AI Overview** text from that page (free AI-mode style answer)
+3. Return that text — **no Gemini API**, **no following links**, **no reading other sites**
+
+```bash
+./scripts/halim_google_search.sh "what is inflation"
 ```
+
+Disable: `HALIM_GOOGLE_AI_SEARCH=false`
+
+General `gate_web_fetch()` is **blocked** while `google_ai_search_only` is true.
 
 ## Forbidden forever
 
