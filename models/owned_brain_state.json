@@ -8,7 +8,8 @@
   "birth_at": "2026-06-27T06:29:59.402563+00:00",
   "stage": "adult",
   "api_usage_today": {
-    "day": "2026-06-27"
+    "day": "2026-06-27",
+    "decision": 1
   },
   "_notify_stage": "adult"
 }
