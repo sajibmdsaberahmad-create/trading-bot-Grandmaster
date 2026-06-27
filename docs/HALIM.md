@@ -90,6 +90,31 @@ Halim may **google** a topic and read only the **public AI Overview** box on Goo
 - Only `google.com/search?q=...`
 - `links_followed: 0` always
 
+### Wikipedia & news learning (read-only, monitored)
+
+Halim may **read** allowlisted public pages for training gold — **never edit, post, login, or change anything** on external sites:
+
+```bash
+./scripts/halim_learn_fetch.sh "https://en.wikipedia.org/wiki/Egg"
+./scripts/halim_learn_fetch.sh "wiki:Inflation"   # Wikipedia shortcut
+```
+
+**Allowlisted hosts:** Wikipedia, Reuters, AP, BBC, CNBC, Yahoo Finance, SEC, Investopedia.
+
+| Rule | Value |
+|------|-------|
+| Method | GET only — no POST, no forms |
+| Max size | 512 KB per page |
+| Daily cap | 80 learn fetches |
+| Link following | **0** — one URL per request |
+| External changes | **Never** — `external_changed: false` always |
+| Audit | `models/halim_web_learn.jsonl` + `models/halim_web_monitor.jsonl` |
+| Cache | `halim/data/learn_cache/` (local training snippets) |
+
+Disable: `HALIM_WEB_LEARN=false`
+
+Blocked forever: Wikipedia edit URLs, login, subscribe, `/api/`, form submit.
+
 ## Related
 
 - [OWNED_BRAIN.md](OWNED_BRAIN.md) — technical flywheel (evolution, git, Telegram)

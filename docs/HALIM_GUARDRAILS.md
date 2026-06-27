@@ -90,13 +90,15 @@ ok, reason = gate_api_call("market_data", cfg, url="...")
 
 Purposes allowlisted in constitution. Daily cap default: **500 API calls**.
 
-## Web (Google AI search only — operator enabled)
+## Web (Google AI search + read-only learning — operator enabled)
 
-**Not general browsing.** Halim may only:
+### Google AI Overview
+
+**Not general browsing.** Halim may:
 
 1. Send one `google.com/search?q=YOUR_QUERY` request
 2. Parse the **public AI Overview** text from that page (free AI-mode style answer)
-3. Return that text — **no Gemini API**, **no following links**, **no reading other sites**
+3. Return that text — **no Gemini API**, **no following links**
 
 ```bash
 ./scripts/halim_google_search.sh "what is inflation"
@@ -104,7 +106,26 @@ Purposes allowlisted in constitution. Daily cap default: **500 API calls**.
 
 Disable: `HALIM_GOOGLE_AI_SEARCH=false`
 
-General `gate_web_fetch()` is **blocked** while `google_ai_search_only` is true.
+### Wikipedia & news (read-only learn)
+
+Halim may **read** public articles from allowlisted sources for local training — **never edit or post externally**:
+
+```bash
+./scripts/halim_learn_fetch.sh "https://en.wikipedia.org/wiki/Stock"
+./scripts/halim_learn_fetch.sh "wiki:Federal_Reserve"
+```
+
+| Guard | Detail |
+|-------|--------|
+| Hosts | Wikipedia, Reuters, AP, BBC, CNBC, Yahoo Finance, SEC, Investopedia |
+| Method | GET only — `no_post_requests`, `no_external_edits` |
+| Caps | 80 learn fetches/day, 512 KB max per page |
+| Monitoring | `models/halim_web_learn.jsonl`, `models/halim_web_monitor.jsonl` |
+| Forbidden | edit URLs, login, subscribe, API paths, form submit |
+
+Disable: `HALIM_WEB_LEARN=false`
+
+General arbitrary browsing remains blocked (`web_fetches: 0`, `no_arbitrary_browsing`).
 
 ## Forbidden forever
 
@@ -114,6 +135,7 @@ General `gate_web_fetch()` is **blocked** while `google_ai_search_only` is true.
 - Force-push / hard-reset git
 - Unbounded shell
 - Trade outside risk limits (HANOON cognitive guardrails)
+- External POST / form submit / wiki edit (Halim never changes remote sites)
 
 ## Related
 

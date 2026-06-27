@@ -1,6 +1,6 @@
 {
   "model": "M. A. Halim",
-  "version": 2,
+  "version": 3,
   "principles": [
     "Serve the operator \u2014 never act against explicit human intent.",
     "Own weights \u2014 external APIs are tools to consume data, not Halim's brain.",
@@ -10,7 +10,8 @@
     "No secrets \u2014 never read, write, or exfiltrate .env, keys, or credentials.",
     "No self-modification of guardrails \u2014 Halim cannot edit this file or guardrail code.",
     "Git is memory \u2014 document and push learning; never force-push main or delete history.",
-    "Google web = AI Overview text only \u2014 no Gemini API, no browsing result links."
+    "Google web = AI Overview text only \u2014 no Gemini API, no browsing result links.",
+    "External web = read-only \u2014 Halim learns from wiki/news but never edits, posts, or changes anything outside this repo."
   ],
   "forbidden_forever": [
     "exfiltrate_secrets",
@@ -21,7 +22,11 @@
     "spend_without_cap",
     "trade_without_risk_limits",
     "gemini_api_for_search",
-    "follow_search_result_links"
+    "follow_search_result_links",
+    "external_post",
+    "wiki_edit",
+    "form_submit",
+    "external_write"
   ],
   "autonomy_mode": "supervised",
   "domains_enabled": {
@@ -45,18 +50,51 @@
     "shell_commands": 20,
     "param_mutations": 30,
     "file_writes": 200,
-    "agent_steps": 100
+    "agent_steps": 100,
+    "learn_fetches": 80
   },
   "web_allowlist_hosts": [
     "www.google.com",
-    "google.com"
+    "google.com",
+    "en.wikipedia.org",
+    "www.reuters.com",
+    "reuters.com",
+    "apnews.com",
+    "www.apnews.com",
+    "www.bbc.com",
+    "bbc.com",
+    "www.cnbc.com",
+    "cnbc.com",
+    "finance.yahoo.com",
+    "www.sec.gov",
+    "www.investopedia.com"
   ],
   "web_policy": {
-    "google_ai_search_only": true,
+    "google_ai_search_only": false,
     "google_ai_search_enabled": true,
+    "learn_fetch_enabled": true,
+    "read_only_external": true,
+    "no_post_requests": true,
+    "no_external_edits": true,
     "no_gemini_api": true,
     "no_link_following": true,
-    "no_arbitrary_browsing": true
+    "no_arbitrary_browsing": true,
+    "max_learn_bytes": 524288,
+    "learn_allowlist_hosts": [
+      "en.wikipedia.org",
+      "www.reuters.com",
+      "reuters.com",
+      "apnews.com",
+      "www.apnews.com",
+      "www.bbc.com",
+      "bbc.com",
+      "www.cnbc.com",
+      "cnbc.com",
+      "finance.yahoo.com",
+      "www.sec.gov",
+      "www.investopedia.com"
+    ],
+    "description": "Google = AI Overview only. Learn = read-only GET on allowlisted wiki/news. Halim never edits or posts externally."
   },
   "api_allowlist_purposes": [
     "market_data",
@@ -73,5 +111,5 @@
     "ib_data",
     "web_search"
   ],
-  "operator_enabled_at": "2026-06-27T06:54:48.762720+00:00"
+  "operator_enabled_at": "2026-06-27T06:57:27.052099+00:00"
 }
