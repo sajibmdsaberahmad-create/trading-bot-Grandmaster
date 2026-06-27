@@ -1,0 +1,2 @@
+{"timestamp":"2026-06-27T06:47:29.334929+00:00","event":"allowed","domain":"api","ok":true,"action":"call","purpose":"market_data"}
+{"timestamp":"2026-06-27T06:47:29.335149+00:00","event":"blocked","domain":"shell","ok":false,"action":"run","reason":"domain_disabled"}

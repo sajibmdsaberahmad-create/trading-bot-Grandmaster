@@ -1,0 +1,150 @@
+{
+  "model": "M. A. Halim",
+  "short_name": "Halim",
+  "updated_at": "2026-06-27T06:40:23.854341+00:00",
+  "phase": "newborn",
+  "phase_info": {
+    "index": 0,
+    "description": "Numeric students only \u2014 PPO reflex, proxy, scalper weights.",
+    "external_llm": false,
+    "capabilities": [
+      "trade_reflex",
+      "enter_skip_proxy",
+      "heuristic_copilot"
+    ]
+  },
+  "identity": {
+    "name": "M. A. Halim",
+    "short_name": "Halim",
+    "version": 1,
+    "birth_at": "2026-06-27T06:40:22.991421+00:00",
+    "phase": "newborn",
+    "philosophy": "Own every weight. No permanent dependency on Groq, Gemini, Claude, or Ollama. Grow from trading reflexes into a frontier model \u2014 generative, calculative, coding.",
+    "body": "HANOON trading bot (first embodiment)",
+    "repo": "halim",
+    "external_llm_policy": "none_when_native",
+    "native_mode": false
+  },
+  "native_mode": false,
+  "roadmap_repo": "halim",
+  "owned_assets": [
+    "models/ppo_trader.zip",
+    "models/teacher_proxy.joblib",
+    "models/scalper_weights.json",
+    "models/council_training_dataset.jsonl",
+    "models/halim_identity.json",
+    "models/halim_manifest.json"
+  ],
+  "brain_status": {
+    "timestamp": "2026-06-27T06:40:23.272686+00:00",
+    "philosophy": "API teaches \u2192 students on disk learn \u2192 API calls shrink over time",
+    "assets": {
+      "ppo_live": {
+        "exists": true,
+        "path": "ppo_trader.zip",
+        "size_kb": 28474.7,
+        "modified": "2026-06-27T05:37:04.473490+00:00"
+      },
+      "ppo_replay": {
+        "exists": true,
+        "path": "/Users/mdsabersajib/Downloads/tradingbot/models/ppo_trader_replay.zip",
+        "size_kb": 28474.7,
+        "modified": "2026-06-27T06:40:18.953443+00:00"
+      },
+      "teacher_proxy": {
+        "exists": true,
+        "path": "models/teacher_proxy.joblib",
+        "size_kb": 14.6,
+        "modified": "2026-06-27T06:33:46.391335+00:00"
+      },
+      "scalper_weights": {
+        "exists": true,
+        "path": "models/scalper_weights.json",
+        "size_kb": 1.0,
+        "modified": "2026-06-27T06:40:09.643471+00:00"
+      },
+      "copilot_state": {
+        "exists": false,
+        "path": "models/copilot_state.json"
+      },
+      "experience_buffer": {
+        "exists": true,
+        "path": "models/experience_buffer.jsonl",
+        "size_kb": 9266.9,
+        "modified": "2026-06-27T06:40:23.159192+00:00"
+      },
+      "decision_log": {
+        "exists": true,
+        "path": "models/ai_decision_log.jsonl",
+        "size_kb": 2937.5,
+        "modified": "2026-06-27T06:40:20.738935+00:00"
+      },
+      "council_dataset": {
+        "exists": true,
+        "path": "models/council_training_dataset.jsonl",
+        "size_kb": 751.0,
+        "modified": "2026-06-27T06:33:37.353664+00:00"
+      },
+      "ppo_teacher_sessions": {
+        "exists": true,
+        "path": "models/ppo_teacher_sessions.jsonl",
+        "size_kb": 2.0,
+        "modified": "2026-06-27T06:30:06.236728+00:00"
+      }
+    },
+    "phases": {
+      "ppo": "active",
+      "teacher_proxy": "fast_path",
+      "proxy_accuracy": 1.0,
+      "fast_path": true,
+      "ppo_teacher": "active",
+      "copilot": "warming",
+      "growth_stage": "adult"
+    },
+    "api_dependency": "low-medium",
+    "next_milestone": "Optional: fine-tune 1-3B model on council_dataset (Modal/Colab once)",
+    "trade_stats": {
+      "count": 62,
+      "win_rate": 0.194,
+      "avg_pnl": -5.71
+    },
+    "buffer_records": 9662,
+    "dataset_pairs": 2023,
+    "maturity": {
+      "stage": "adult",
+      "stage_index": 5,
+      "stage_count": 6,
+      "description": "Owned brain \u2014 API polish only; students run the session",
+      "metrics": {
+        "closed_trades": 3266,
+        "dataset_pairs": 2023,
+        "evolution_count": 2,
+        "proxy_accuracy": 1.0,
+        "proxy_exists": true
+      },
+      "limits": {
+        "min_trades": 350,
+        "min_evolutions": 8,
+        "min_dataset": 1200,
+        "decision_api_daily": 8,
+        "copilot_api_daily": 2,
+        "ppo_teacher_api_daily": 0,
+        "council_sample_rate": 0.06,
+        "copilot_refresh_sec": 240.0,
+        "ppo_micro_steps": 768,
+        "proxy_min_trades": 10,
+        "use_proxy_entries": true,
+        "description": "Owned brain \u2014 API polish only; students run the session"
+      },
+      "api_budget_multiplier": 0.2,
+      "api_usage_today": {
+        "day": "2026-06-27"
+      },
+      "decision_budget_left": 1,
+      "copilot_budget_left": 0,
+      "ppo_teacher_budget_left": 0,
+      "next_stage": null
+    }
+  },
+  "next_milestone": "Export to halim repo \u2192 train first small Halim transformer (one-time GPU)"
+}

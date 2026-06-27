@@ -1,0 +1,2 @@
+{"timestamp":"2026-06-27T06:33:46.938597+00:00","event":"brain_proxy_trained","accuracy":1.0,"samples":645,"stage":"adult","fast_path":true,"summary":"Teacher proxy acc=100% (645 samples)"}
+{"timestamp":"2026-06-27T06:34:08.344811+00:00","event":"brain_evolution","stage":"adult","trigger":"cli","dataset_pairs":2023,"trade_count":0,"win_rate":null,"proxy_status":"trained","ppo_teacher_status":"skip","git_push":"queued","summary":"Evolution cli \u2014 stage adult, dataset 2023 pairs"}
