@@ -1,17 +1,20 @@
 {
-  "narrative": "Local copilot: 29% session WR. Repeat losers: COIN, QS.",
+  "narrative": "Local copilot: 22% session WR. Repeat losers: COIN, MARA, ASTS, LCID.",
   "regime_read": "mixed",
-  "risk_posture": "normal",
-  "session_wr": 0.2857142857142857,
+  "risk_posture": "defensive",
+  "session_wr": 0.2222222222222222,
   "session_pnl": 0.0,
   "ticker_bias": {
     "COIN": "SKIP",
-    "QS": "SKIP",
-    "MARA": "CAUTION"
+    "MARA": "SKIP",
+    "ASTS": "SKIP",
+    "LCID": "SKIP"
   },
   "repeat_losers": [
     "COIN",
-    "QS"
+    "MARA",
+    "ASTS",
+    "LCID"
   ],
   "ppo_hints": {
     "confidence_boost": 0.0,
@@ -21,6 +24,6 @@
     "Skip tickers with 2+ losses this session",
     "Require PPO+council alignment on entries"
   ],
-  "updated_at": 1782544157.6674838,
+  "updated_at": 1782562766.621231,
   "source": "heuristic"
 }
