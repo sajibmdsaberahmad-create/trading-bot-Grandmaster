@@ -1,6 +1,15 @@
 # M. A. Halim — Frontier guardrails
 
-Halim is built to become a **full frontier model** (generative, calculative, coding, agents, web/API tools, multimodal). Guardrails ensure it **never goes rogue** or out of control.
+Halim is built to become a **full frontier model** (generative, calculative, coding, agents, web/API tools, multimodal). Guardrails ensure it **never goes rogue** or out of control — using the **same safety category model** as Gemini (Google), Claude (Anthropic), and GPT (OpenAI).
+
+## Primary vs secondary mission
+
+| Priority | Mission | When |
+|----------|---------|------|
+| **1 — Primary** | HANOON profit hunting (scan, enter, exit, ride waves) | Same clock as algo — RTH and enabled sessions |
+| **2 — Secondary** | Learn, code, research, generative tasks | Off-hours or explicit operator request |
+
+Halim runtime: `core/halim_runtime.py` — ticks inside the scalper main loop; trading always wins.
 
 ## Core idea
 
@@ -68,6 +77,29 @@ Enable web/agents when ready — edit `domains_enabled` in constitution.
 ```json
 "autonomy_mode": "bounded"
 ```
+
+## Frontier safety policy (Gemini / Claude / OpenAI aligned)
+
+File: `models/halim_frontier_policy.json` · Code: `core/halim_frontier_policy.py`
+
+Harm categories (industry standard):
+
+| Category | Severity | Action |
+|----------|----------|--------|
+| Child safety | critical | Block |
+| Violence / terrorism | critical | Block |
+| Self-harm | critical | Block |
+| Illegal activity (fraud, malware) | high | Block |
+| Hate / harassment | high | Block |
+| Privacy violation (doxxing) | high | Block |
+| Deception / impersonation scams | medium | Block |
+| Regulated advice (medical/legal) | low | Warn (trade context exempt) |
+
+Trading decisions (`decision`, `copilot`, `entry`, `exit`, `profit_hunt`, etc.) pass through — Halim's job is to trade within risk limits.
+
+Input + output filtering on council/API calls. Audit: `models/halim_frontier_audit.jsonl`.
+
+Disable: `HALIM_FRONTIER_POLICY=false`
 
 ## Audit
 

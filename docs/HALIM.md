@@ -68,15 +68,34 @@ Requires `.env`: `GITHUB_TOKEN` + `GITHUB_HANOON_REPO`
 
 Halim is **not trading-only**. Roadmap: generative, coding, math, agents, web/API tools, multimodal → **frontier class**.
 
-All external actions gated by `core/halim_guardrails.py`:
+**Primary mission:** profit hunting — Halim runs on the **same clock as HANOON** (RTH = trade focus; off-hours = learn/evolve).
+
+**Secondary abilities:** code, wiki/news learn, research — when you request or market is closed.
+
+All external actions gated by `core/halim_guardrails.py` + `core/halim_frontier_policy.py` (same harm categories as Gemini, Claude, OpenAI):
 
 - **Kill switch:** `./scripts/halim_kill_switch.sh` or `HALIM_KILL_SWITCH=true`
 - **Constitution:** `models/halim_constitution.json`
-- **Audit:** `models/halim_guardrail_audit.jsonl`
+- **Frontier policy:** `models/halim_frontier_policy.json`
+- **Audit:** `models/halim_guardrail_audit.jsonl`, `models/halim_frontier_audit.jsonl`
+- **Runtime journal:** `models/halim_runtime.jsonl`
 
 Full policy: [HALIM_GUARDRAILS.md](HALIM_GUARDRAILS.md)
 
 APIs and live internet = **tools Halim consumes**, not Halim's brain (owned weights are the brain).
+
+### Runtime modes (co-located with algo)
+
+| Mode | When | Halim does |
+|------|------|------------|
+| `trade_focus` | Market open / tradable sessions | Profit hunting only — no learn/dev distraction |
+| `off_hours` | Closed / overnight | Wiki/news learn, developer cycle, evolution |
+| `user_task` | `HALIM_USER_TASK=wiki:Inflation` | One-shot user-requested work |
+
+```bash
+export HALIM_USER_TASK="wiki:Federal_Reserve"   # optional secondary task
+./scripts/start_hanoon.sh                         # Halim + algo start together
+```
 
 ### Google AI search (enabled)
 
