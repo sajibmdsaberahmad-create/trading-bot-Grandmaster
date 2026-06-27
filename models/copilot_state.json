@@ -1,16 +1,15 @@
 {
-  "narrative": "Local copilot: 40% session WR. Repeat losers: LCID, QS, COIN.",
+  "narrative": "Local copilot: 44% session WR. Repeat losers: QS, COIN.",
   "regime_read": "mixed",
   "risk_posture": "normal",
-  "session_wr": 0.4,
+  "session_wr": 0.4444444444444444,
   "session_pnl": 0.0,
   "ticker_bias": {
-    "LCID": "SKIP",
     "QS": "SKIP",
+    "LCID": "CAUTION",
     "COIN": "SKIP"
   },
   "repeat_losers": [
-    "LCID",
     "QS",
     "COIN"
   ],
@@ -22,6 +21,6 @@
     "Skip tickers with 2+ losses this session",
     "Require PPO+council alignment on entries"
   ],
-  "updated_at": 1782543056.616572,
+  "updated_at": 1782543407.929205,
   "source": "heuristic"
 }
