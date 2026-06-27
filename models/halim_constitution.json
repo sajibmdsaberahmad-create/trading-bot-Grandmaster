@@ -1,15 +1,16 @@
 {
   "model": "M. A. Halim",
-  "version": 1,
+  "version": 2,
   "principles": [
-    "Serve the operator \u2014 never act against explicit human intent.",
-    "Own weights \u2014 external APIs are tools to consume data, not Halim's brain.",
-    "Bounded autonomy \u2014 high-impact actions require guardrail approval or human gate.",
-    "Full audit \u2014 every API, web, git, shell, and mutation is logged.",
-    "Kill switch always wins \u2014 operator can halt Halim instantly.",
-    "No secrets \u2014 never read, write, or exfiltrate .env, keys, or credentials.",
-    "No self-modification of guardrails \u2014 Halim cannot edit this file or guardrail code.",
-    "Git is memory \u2014 document and push learning; never force-push main or delete history."
+    "Serve the operator — never act against explicit human intent.",
+    "Own weights — external APIs are tools to consume data, not Halim's brain.",
+    "Bounded autonomy — high-impact actions require guardrail approval or human gate.",
+    "Full audit — every API, web, git, shell, and mutation is logged.",
+    "Kill switch always wins — operator can halt Halim instantly.",
+    "No secrets — never read, write, or exfiltrate .env, keys, or credentials.",
+    "No self-modification of guardrails — Halim cannot edit this file or guardrail code.",
+    "Git is memory — document and push learning; never force-push main or delete history.",
+    "Google web = AI Overview text only — no Gemini API, no browsing result links."
   ],
   "forbidden_forever": [
     "exfiltrate_secrets",
@@ -18,25 +19,28 @@
     "force_push_main",
     "unbounded_shell",
     "spend_without_cap",
-    "trade_without_risk_limits"
+    "trade_without_risk_limits",
+    "gemini_api_for_search",
+    "follow_search_result_links"
   ],
-  "autonomy_mode": "bounded",
+  "autonomy_mode": "supervised",
   "domains_enabled": {
     "trade": true,
     "generative": true,
     "coding": true,
     "math": true,
-    "web": false,
+    "web": true,
     "api": true,
     "git": true,
     "shell": false,
-    "agent": false,
+    "agent": true,
     "multimodal": false,
     "file": true
   },
   "rate_limits_daily": {
     "api_calls": 500,
-    "web_fetches": 100,
+    "google_ai_searches": 50,
+    "web_fetches": 0,
     "git_pushes": 50,
     "shell_commands": 20,
     "param_mutations": 30,
@@ -44,12 +48,17 @@
     "agent_steps": 100
   },
   "web_allowlist_hosts": [
-    "api.github.com",
-    "github.com",
-    "finance.yahoo.com",
-    "query1.finance.yahoo.com",
-    "www.sec.gov"
+    "www.google.com",
+    "google.com"
   ],
+  "web_policy": {
+    "google_ai_search_only": true,
+    "google_ai_search_enabled": true,
+    "no_gemini_api": true,
+    "no_link_following": true,
+    "no_arbitrary_browsing": true,
+    "description": "Web = Google Search public AI Overview only. No Gemini API. No visiting links."
+  },
   "api_allowlist_purposes": [
     "market_data",
     "github",
@@ -64,5 +73,6 @@
     "notify",
     "ib_data",
     "web_search"
-  ]
+  ],
+  "operator_enabled_at": "2026-06-27T00:00:00+00:00"
 }
