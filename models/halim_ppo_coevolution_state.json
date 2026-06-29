@@ -1,17 +1,25 @@
 {
-  "last_cycle": "2026-06-27T11:55:56.459850+00:00",
+  "last_cycle": "2026-06-29T07:06:29.423813+00:00",
   "trigger": "replay_teardown",
   "stats": {
-    "agreements": 78,
-    "disagreements": 559,
-    "corrections_for_ppo": 736,
+    "agreements": 173,
+    "disagreements": 2362,
+    "corrections_for_ppo": 3091,
     "corrections_for_halim": 2,
     "log_path": "halim/data/coevolution/correction_log.jsonl"
   },
   "export": {
     "ok": true,
-    "added": 1553,
-    "total": 7952
+    "added": 3321,
+    "total": 3321,
+    "events": 3274,
+    "rewritten": true
   },
-  "cycles": 19
+  "cycles": 26,
+  "dialogue_export": {
+    "ok": true,
+    "pairs": 4000,
+    "dialogue_lines": 2000,
+    "rewritten": true
+  }
 }
