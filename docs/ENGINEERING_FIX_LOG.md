@@ -103,6 +103,96 @@ IB Error **201 closing-only** on CUPR is account/risk restriction — existing `
 
 ---
 
+## 2026-06-30 — Pre-market PreSubmitted entry timeouts (GVH)
+
+### Problem
+GVH (and ext-hours entries) polled 80/80 in `PreSubmitted` ~27s then `order_timeout`. Yesterday RTH fills worked; 07:25 ET pre-market did not.
+
+### Root cause
+1. `_entry_price_mode` forced `PAPER_MARKET_ENTRIES` → bare MARKET even outside RTH.
+2. IB paper parent-only + `outsideRth` MARKET orders often never leave `PreSubmitted`.
+3. Stuck recovery retried MARKET once (`market_retry_done`) then waited until poll cap — no limit chase.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/scalper_runner.py` | Ext-hours use `decide_smart_entry` limit; `_stuck_entry_limit_px`; up to `ENTRY_STUCK_MAX_RETRIES` limit retries |
+| `core/config.py` | `ENTRY_STUCK_MAX_RETRIES` (default 2) |
+
+### Env vars
+```bash
+ENTRY_STUCK_MAX_RETRIES=2
+PENDING_SUBMIT_MAX_SEC=4
+# Optional: force limit in RTH paper too
+# PAPER_MARKET_ENTRIES=false
+```
+
+### Verify
+Pre-market replay — entry log should show `ext_hours_limit_*` or `LIMIT@$…`, not bare `MARKET`. On stuck: `Stuck-entry retry GVH: limit@…`.
+
+---
+
+## 2026-06-30 — IB fill sync (phantom P&L vs IB account)
+
+### Problem
+Premarket logs showed large internal profits (~$100k+) while IB account showed losses. Bot NAV / unrealized P&L diverged from broker reality.
+
+### Root cause
+1. Entry fill detection treated **entire existing IB position** as a new fill (orphan paper holdings).
+2. `_sync_all_positions_from_ib` could inflate slot shares to full IB size while keeping bot entry price.
+3. Exit P&L credited from **quote fallback** after 8s without IB execution.
+4. `bot_nav` / `day_pnl` used internal ledger, not IB NetLiquidation change.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/fill_tracker.py` | `confirm_entry_fill`, `ib_position_shares`, `require_ib_fill_sync`, `ib_fill_strict` |
+| `core/scalper_runner.py` | Baseline position at order submit; IB-confirmed entry only; strict exit finalize; NAV sync to IB |
+| `core/fill_reconciler.py` | No quote-force P&L when `IB_FILL_STRICT` |
+| `core/position_intel.py` | IB-first shares/entry; display IB day P&L |
+| `core/account_evaluator.py` | Day P&L from IB change when sync on |
+| `core/config.py` | `REQUIRE_IB_FILL_SYNC`, `IB_FILL_STRICT`, `IB_FILL_FORCE_SEC` |
+
+### Env vars
+```bash
+REQUIRE_IB_FILL_SYNC=true   # default
+IB_FILL_STRICT=true         # no quote P&L booking
+IB_FILL_FORCE_SEC=120
+```
+
+### Verify
+- Entry log: `✅ IB entry confirmed TICKER: Nsh @ $X (order_status|position_delta|exec_cache)`
+- Exit log: `📕 EXIT TICKER (IB fill):` — not `est. fill` unless strict off
+- `/positions` shows `Day P&L` matching IB account change, not inflated unrealized
+
+---
+
+## 2026-06-30 — Defer git push during live session (performance)
+
+### Problem
+During premarket/RTH, logs showed `Push rejected — pull --rebase` and multi-repo `session_batch` pushes while entries/exits were active. Git commit/push/rebase competes with IB loop for disk, CPU, and network.
+
+### Root cause
+`GIT_PUSH_DURING_SESSION` defaulted **true** despite config comment saying defer. Batched checkpoint timer still flushed every ~180s with `force=True`, bypassing defer.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/config.py` | `GIT_PUSH_DURING_SESSION` default **false** |
+| `core/git_sync.py` | `_git_session_push_enabled()`; no debounce flush when off; queue until shutdown |
+
+### Env vars
+```bash
+GIT_PUSH_DURING_SESSION=false   # default — flush on stop_hanoon only
+LEARNING_PUSH_ON_TRADE=true     # still queues; no push until shutdown
+# Optional: ./scripts/stop_git_sync.sh during RTH
+```
+
+### Verify
+Live session: no `session_batch` / `pull --rebase` logs during trading. On `stop_hanoon.sh`: `pre_shutdown` + full learning push once.
+
+---
+
 ## 2026-06-30 — War replay ledger isolation (code)
 
 ### Problem
