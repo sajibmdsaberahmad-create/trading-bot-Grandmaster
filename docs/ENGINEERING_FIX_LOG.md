@@ -191,6 +191,90 @@ LEARNING_PUSH_ON_TRADE=true     # still queues; no push until shutdown
 ### Verify
 Live session: no `session_batch` / `pull --rebase` logs during trading. On `stop_hanoon.sh`: `pre_shutdown` + full learning push once.
 
+### Follow-up (same day)
+`force=True` in `flush_batched_git_sync` still bypassed defer; stale debounce timers could fire. Gated `flush_batched_git_sync` + `push_learning_checkpoint(force)`; cancel timers on init; `START_GIT_SYNC_WITH_HANOON` default **false**.
+
+---
+
+## 2026-06-30 — Codebase organization & hygiene
+
+### Problem
+Scattered env defaults, triple accounting confusion, runtime jsonl in git, no unit tests, monolithic scalper, duplicate launcher exports.
+
+### Fix
+| Area | Change |
+|------|--------|
+| `core/account_view.py` | IB-grounded equity / day P&L |
+| `core/entry_pipeline.py` | Extracted IB entry fill confirmation |
+| `scripts/start_hanoon.sh` | Deduped `PPO_LEAD` / `TRAILING_PROFIT` exports; git/IB sync env |
+| `tests/` | pytest for fills, git defer, account_view |
+| `.gitignore` | Runtime journals + session state local-only |
+| `archive/replay_live_runner.py` | Deprecated (use `replay_scalper_runner`) |
+| `docs/OPS.md`, `ARCHITECTURE.md`, `models/README.md`, `GIT_SYNC.md` | Updated |
+| `main.py` | `--port` inherits `BotConfig.IB_PORT` (4002) |
+| `core/config.py` | `SMART_STACK`, `RAM_LIVE_ONLY` in BotConfig |
+| `core/capital_discipline.py` | Fix PPO_LEAD getattr default |
+
+### Verify
+```bash
+python3 -m pytest tests/ -q
+grep -c PPO_LEAD_WHILE scripts/start_hanoon.sh  # expect 1
+```
+
+---
+
+## 2026-06-30 — War auto-reset at RTH open (ET)
+
+### Problem
+Premarket exhausted war/lab round-trip caps (5/5 + 4/4); RTH spikes blocked in OBSERVE despite settled cash remaining. User had to manually `reset_live_war_session` each morning.
+
+### Root cause
+`_roll_session` only reset on **calendar day** change (midnight), not at **09:30 ET** RTH open on the same day.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/war_account.py` | `_roll_rth_session()` — fresh capital + zero trips at first RTH check each ET day |
+| `scripts/start_hanoon.sh` | `WAR_AUTO_RESET_AT_RTH=true` (paper $3.5k; live uses `WAR_LIVE_OPERATING_CAPITAL` $1k) |
+| `tests/test_war_account_rth.py` | Unit tests for RTH roll |
+
+### Env
+```bash
+WAR_AUTO_RESET_AT_RTH=true          # default
+WAR_CAPITAL_USD=3500                # paper (change to 1000 via WAR_LIVE_OPERATING_CAPITAL when live)
+WAR_LIVE_OPERATING_CAPITAL=1000     # set when going live
+```
+
+### Verify
+```bash
+venv/bin/pytest tests/test_war_account_rth.py -q
+# At 09:30 ET log: ⚔️ War account RTH reset (ET) — mode=WAR_ACTIVE nav=$3,500 ...
+```
+
+---
+
+## 2026-06-30 — Structural module extractions (final org pass)
+
+### Problem
+`scalper_runner.py` and `git_sync.py` still monolithic; entry poll state duplicated; defer policy buried in 2.5k-line git module.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/git_sync_defer.py` | Session defer policy, checkpoint queue, replay batching |
+| `core/git_sync.py` | Re-exports defer API; registers shutdown flush hook |
+| `core/position_sync.py` | `repair_slot_entry_price`, `sync_position_slots_from_ib` |
+| `core/entry_pipeline.py` | `new_entry_poll_state`, `entry_price_mode_for_session`, `stuck_entry_limit_px` |
+| `core/scalper_runner.py` | Delegates to extracted modules (no behavior change) |
+| `docs/CLEANUP_AND_ORGANIZATION_2026-06-30.md` | Complete session cleanup report |
+
+### Verify
+```bash
+venv/bin/pytest tests/ -q
+python3 -c "from core.git_sync_defer import should_defer_git_push; from core.position_sync import sync_position_slots_from_ib"
+python3 -c "from core.entry_pipeline import entry_price_mode_for_session, stuck_entry_limit_px"
+```
+
 ---
 
 ## 2026-06-30 — War replay ledger isolation (code)
