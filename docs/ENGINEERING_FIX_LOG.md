@@ -10,6 +10,40 @@
 
 ---
 
+## 2026-06-30 — War trip cap vs settled cash + Halim trade Telegram
+
+### Problem
+Paper war showed `settled=$3,469` but `mode=OBSERVE` with `trips=5/5` while `WAR_BULLETS=8` — cash was usable but trip cap blocked entries. Logs said "capital dry" when the real blocker was trips. Trade Telegram used structured templates only (no Halim local voice); `live_snapshot` still used poisoned `bot_nav`/`INITIAL_CASH`.
+
+### Root cause
+1. `WAR_PAPER_MAX_ROUND_TRIPS_PER_DAY=5` mismatched `WAR_BULLETS=8`.
+2. RTH reset runs once at 09:30 ET; restarts same day kept exhausted trip counters.
+3. `notify_event_wants_api` false → `compose_outbound` returned templates without Halim companion path.
+4. `live_snapshot()` ignored `account_view` and war pool context.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/war_account.py` | Paper trip default follows `WAR_BULLETS`; `_maybe_refresh_trips_if_settled` on `ensure_war_account`; clearer trip-cap OBSERVE reason |
+| `scripts/start_hanoon.sh` | `WAR_PAPER_MAX_ROUND_TRIPS_PER_DAY=8`, `WAR_FRESH_TRIPS_ON_START=true` |
+| `core/halim_companion.py` | `halim_trading_notify()` for trade/session events; `live_snapshot` uses IB + war context |
+| `core/ai_notifier.py` | Halim-first when API off/busy; war line in structured fallbacks |
+| `core/scalper_runner.py` | `_notify_context` includes war pool + runner ref for Halim |
+
+### Env vars
+```bash
+WAR_PAPER_MAX_ROUND_TRIPS_PER_DAY=8   # match WAR_BULLETS
+WAR_FRESH_TRIPS_ON_START=true         # paper: refresh trips on HANOON restart if settled remains
+HALIM_TELEGRAM_TRADE_NOTIFY=true      # Halim local voice for trade Telegram
+```
+
+### Verify
+- Restart HANOON after trip cap: log `War trips refreshed on HANOON start` and `mode=WAR_ACTIVE`.
+- Telegram startup/entry/close shows IB day P&L + war pool line.
+- `pytest tests/test_war_account_rth.py -q`
+
+---
+
 ## 2026-06-30 — Learning flywheel hardening (outcome teacher, proxy holdout, Halim gate)
 
 ### Problem
@@ -220,6 +254,22 @@ Scattered env defaults, triple accounting confusion, runtime jsonl in git, no un
 python3 -m pytest tests/ -q
 grep -c PPO_LEAD_WHILE scripts/start_hanoon.sh  # expect 1
 ```
+
+---
+
+## 2026-06-30 — War OBSERVE message + Telegram NAV baseline
+
+### Problem
+War log said "capital dry/settled out" when trip cap was hit ($3,469 settled but 5/5 trips). Telegram/session close used `bot_nav`≈IB $982k and `INITIAL_CASH` was overwritten with IB equity, breaking Day P&L baseline.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/war_account.py` | `_observe_block_reason()` — trip cap vs settled; RLock on state; clearer startup log |
+| `core/scalper_runner.py` | Stop poisoning `INITIAL_CASH`; `_notify_context` uses `account_view`; session close shows IB + war pool |
+
+### Verify
+Restart — Telegram startup should show IB equity; war veto should say `trip cap 5/5` not `capital dry`.
 
 ---
 

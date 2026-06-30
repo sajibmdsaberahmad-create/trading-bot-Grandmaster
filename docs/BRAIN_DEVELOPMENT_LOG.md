@@ -2,6 +2,7 @@
 
 Auto-appended on each owned-brain event. See also [OWNED_BRAIN.md](OWNED_BRAIN.md).
 
+- `2026-06-30` **engineering** — War trip cap aligned with bullets + Halim trade Telegram voice — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
 - `2026-06-30` **engineering** — Regime unknown fix: short-bar classify + spike fallback on live stream — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
 - `2026-06-30` **engineering** — Codebase organization: AccountView, entry_pipeline, pytest, gitignore runtime journals, OPS docs — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
 - `2026-06-30` **engineering** — IB fill sync: confirmed entries/exits, IB-grounded P&L (no orphan position phantom profits) — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
@@ -1170,3 +1171,30 @@ Auto-appended on each owned-brain event. See also [OWNED_BRAIN.md](OWNED_BRAIN.m
 - `2026-06-30 15:52 UTC` **git_training** — learn: session_batch: periodic, snapshot_periodic | learn_20260630_155207 | brain=child dataset=2081 evolutions=37
 - `2026-06-30 15:52 UTC` **git_auto** — sync: 5 files — consciousness.py, BRAIN_DEVELOPMENT_LOG.md, copilot_state.json +2 more | models=1 docs=1 other=3 | brain=child dataset=2081 
 - `2026-06-30 15:52 UTC` **git_auto** — sync: 4 files — consciousness.py, BRAIN_DEVELOPMENT_LOG.md, hanoon.env.enc +1 more | docs=1 other=3 | brain=child dataset=2081 evolutions=37
+- `2026-06-30 15:54 UTC` **git_auto** — sync: 5 files — consciousness.py, BRAIN_DEVELOPMENT_LOG.md, copilot_state.json +2 more | models=1 docs=1 other=3 | brain=child dataset=2081 
+- `2026-06-30 15:54 UTC` **git_auto** — sync: 4 files — consciousness.py, BRAIN_DEVELOPMENT_LOG.md, hanoon.env.enc +1 more | docs=1 other=3 | brain=child dataset=2081 evolutions=37
+- `2026-06-30 15:56 UTC` **git_auto** — sync: 5 files — consciousness.py, BRAIN_DEVELOPMENT_LOG.md, cognitive_state.json +2 more | models=1 docs=1 other=3 | brain=child dataset=208
+- `2026-06-30 15:56 UTC` **git_auto** — sync: 23 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +20 more | halim=9 models=4 d
+- `2026-06-30 15:57 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 15:57 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=2 docs=1 oth
+- `2026-06-30 15:58 UTC` **git_auto** — sync: 12 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +9 more | models=3 docs=1 oth
+- `2026-06-30 15:59 UTC` **git_auto** — sync: 28 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +25 more | halim=10 models=9 
+- `2026-06-30 15:59 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 16:01 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=1 docs=1 cor
+- `2026-06-30 16:01 UTC` **git_training** — learn: session_batch: consciousness, periodic | learn_20260630_160156 | brain=adult dataset=2081 evolutions=37
+- `2026-06-30 16:02 UTC` **git_auto** — sync: 12 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +9 more | models=1 docs=1 cor
+- `2026-06-30 16:03 UTC` **git_auto** — sync: 13 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +10 more | models=2 docs=2 co
+- `2026-06-30 16:04 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 16:06 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=2 docs=1 oth
+- `2026-06-30 16:07 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 16:08 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=1 docs=1 cor
+- `2026-06-30 16:09 UTC` **git_auto** — sync: 15 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +12 more | models=2 docs=1 co
+- `2026-06-30 16:10 UTC` **git_auto** — sync: 15 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +12 more | models=1 docs=2 co
+- `2026-06-30 16:11 UTC` **git_auto** — sync: 12 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +9 more | models=2 docs=1 oth
+- `2026-06-30 16:12 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 16:13 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=2 docs=1 oth
+- `2026-06-30 16:14 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 16:15 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=2 docs=1 oth
+- `2026-06-30 16:15 UTC` **git_auto** — sync: 10 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +7 more | models=1 docs=1 oth
+- `2026-06-30 16:16 UTC` **git_training** — learn: session_batch: snapshot_periodic | learn_20260630_161624 | brain=adult dataset=2081 evolutions=37
+- `2026-06-30 16:16 UTC` **git_auto** — sync: 11 files — results_1min_20260621_091449.json, results_20260621_090243.json, results_20260621_090634.json +8 more | models=1 docs=1 cor
