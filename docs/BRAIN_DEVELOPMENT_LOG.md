@@ -72,3 +72,41 @@ Auto-appended on each owned-brain event. See also [OWNED_BRAIN.md](OWNED_BRAIN.m
 - `2026-06-29 09:09 UTC` **brain_evolution** · stage **adult** — Evolution live_session_end — stage adult, dataset 2834 pairs
 - `2026-06-29 16:02 UTC` **brain_ppo_teacher** — PPO teacher live_session_end: WR 0%, source heuristic_fallback
 - `2026-06-29 16:02 UTC` **brain_evolution** · stage **adult** — Evolution live_session_end — stage adult, dataset 2255 pairs
+- `2026-06-30 04:52 UTC` **brain_ppo_teacher** — PPO teacher replay_teardown: WR 0%, source heuristic_fallback
+- `2026-06-30 04:52 UTC` **brain_evolution** · stage **adult** — Evolution replay_teardown — stage adult, dataset 2180 pairs
+- `2026-06-30 06:00 UTC` **engineering** — Companion pipeline + PPO↔Halim coevolution v2 + replay war relax — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
+- `2026-06-30 06:30 UTC` **engineering** — Forced fix journaling (git pre-commit + Cursor hook) — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
+- `2026-06-30 07:00 UTC` **engineering** — Halim entry await + proxy skip balance + repeat-loser gates — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
+- `2026-06-30 07:30 UTC` **engineering** — Descriptive auto-commit + journal repair — see [ENGINEERING_FIX_LOG.md](ENGINEERING_FIX_LOG.md)
+- `2026-06-30 06:17 UTC` **brain_ppo_teacher** — PPO teacher standalone_flush: WR 12%, source heuristic_fallback
+- `2026-06-30 06:17 UTC` **brain_evolution** · stage **adult** — Evolution standalone_flush — stage adult, dataset 2272 pairs
+- `2026-06-30 06:17 UTC` **brain_ppo_teacher** — PPO teacher replay_teardown: WR 12%, source heuristic_fallback
+- `2026-06-30 06:17 UTC` **brain_evolution** · stage **adult** — Evolution replay_teardown — stage adult, dataset 2272 pairs
+- `2026-06-30 06:17 UTC` **brain_ppo_teacher** — PPO teacher standalone_flush: WR 12%, source heuristic_fallback
+- `2026-06-30 06:17 UTC` **brain_evolution** · stage **adult** — Evolution standalone_flush — stage adult, dataset 2272 pairs
+- `2026-06-30 06:18 UTC` **brain_ppo_teacher** — PPO teacher live_session_end: WR 13%, source heuristic_fallback
+- `2026-06-30 06:18 UTC` **brain_evolution** · stage **adult** — Evolution live_session_end — stage adult, dataset 2272 pairs
+- `2026-06-30 07:10 UTC` **brain_proxy_trained** · stage **adult** — Teacher proxy acc=98% (282 samples)
+- `2026-06-30 07:11 UTC` **brain_ppo_teacher** — PPO teacher coordinated_close: WR 18%, source heuristic_fallback
+- `2026-06-30 07:11 UTC` **brain_proxy_trained** · stage **adult** — Teacher proxy acc=98% (282 samples)
+- `2026-06-30 07:11 UTC` **brain_ppo_teacher** — PPO teacher replay_teardown: WR 19%, source heuristic_fallback
+- `2026-06-30 07:11 UTC` **brain_evolution** · stage **adult** — Evolution replay_teardown — stage adult, dataset 2282 pairs
+- `2026-06-30 08:01 UTC` **brain_proxy_trained** · stage **adult** — Teacher proxy acc=97% (303 samples)
+- `2026-06-30 08:01 UTC` **brain_proxy_trained** · stage **adult** — Teacher proxy acc=97% (303 samples)
+- `2026-06-30 08:01 UTC` **brain_ppo_teacher** — PPO teacher replay_teardown: WR 36%, source heuristic_fallback
+- `2026-06-30 08:01 UTC` **brain_evolution** · stage **adult** — Evolution replay_teardown — stage adult, dataset 2462 pairs
+- `2026-06-30 08:20 UTC` **git_auto** — sync: 82 files — ai_commander.py, brain_maturity.py, halim_entry_line.py +79 more | halim=23 models=38 replay=14 docs=1 core=3 other=3 | bra
+- `2026-06-30 08:20 UTC` **git_auto** — sync: 31 files — ai_commander.py, BRAIN_DEVELOPMENT_LOG.md, action_log.jsonl +28 more | halim=11 models=13 docs=1 core=1 other=5 | brain=adu
+- `2026-06-30 08:20 UTC` **git_auto** — sync: 3 files — HANOON.log.migrated.1782745557, hanoon.env.enc, sync.key | other=3 | brain=adult dataset=2462 evolutions=24
+- `2026-06-30 08:21 UTC` **git_auto** — sync: 4 files — BRAIN_DEVELOPMENT_LOG.md, HANOON.log.migrated.1782745557, hanoon.env.enc +1 more | other=4 | brain=adult dataset=2462 evolut
+- `2026-06-30 08:21 UTC` **git_auto** — sync: 10 files — BRAIN_DEVELOPMENT_LOG.md, action_log.jsonl, coach_shadow_log.jsonl +7 more | halim=1 models=5 other=4 | brain=adult dataset
+- `2026-06-30 08:21 UTC` **git_auto** — sync: 6 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, war_account_state.json +3 more | models=2 other=4 | brain=adult dataset=24
+- `2026-06-30 08:22 UTC` **git_auto** — sync: 5 files — BRAIN_DEVELOPMENT_LOG.md, halim_runtime_state.json, HANOON.log.migrated.1782745557 +2 more | models=1 other=4 | brain=adult 
+- `2026-06-30 08:22 UTC` **git_auto** — sync: 7 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, halim_runtime_state.json +4 more | models=3 other=4 | brain=adult dataset=
+- `2026-06-30 08:22 UTC` **git_auto** — sync: 6 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, war_account_state.json +3 more | models=2 other=4 | brain=adult dataset=24
+- `2026-06-30 08:23 UTC` **git_auto** — sync: 6 files — BRAIN_DEVELOPMENT_LOG.md, halim_runtime.jsonl, halim_runtime_state.json +3 more | models=2 other=4 | brain=adult dataset=246
+- `2026-06-30 08:23 UTC` **git_auto** — sync: 6 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, war_account_state.json +3 more | models=2 other=4 | brain=adult dataset=24
+- `2026-06-30 08:23 UTC` **git_auto** — sync: 7 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, halim_runtime_state.json +4 more | models=3 other=4 | brain=adult dataset=
+- `2026-06-30 08:24 UTC` **git_training** — learn: session_batch: consciousness, periodic | learn_20260630_082424 | brain=adult dataset=2462 evolutions=24
+- `2026-06-30 08:24 UTC` **git_auto** — sync: 8 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, halim_runtime.jsonl +5 more | models=4 other=4 | brain=adult dataset=2462 
+- `2026-06-30 08:24 UTC` **git_auto** — sync: 6 files — BRAIN_DEVELOPMENT_LOG.md, coach_shadow_log.jsonl, war_account_state.json +3 more | models=2 other=4 | brain=adult dataset=24

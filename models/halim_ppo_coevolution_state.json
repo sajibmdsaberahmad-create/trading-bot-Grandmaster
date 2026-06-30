@@ -1,25 +1,30 @@
 {
-  "last_cycle": "2026-06-29T19:00:17.165553+00:00",
-  "trigger": "standalone_flush",
+  "last_cycle": "2026-06-30T08:01:49.340694+00:00",
+  "trigger": "replay_teardown",
   "stats": {
-    "agreements": 1123,
-    "disagreements": 2862,
-    "corrections_for_ppo": 3669,
+    "agreements": 1294,
+    "disagreements": 949,
+    "corrections_for_ppo": 947,
     "corrections_for_halim": 2,
+    "complements": 0,
+    "label_v2_events": 345,
+    "legacy_mislabeled_skipped": 1984,
+    "market_proved_ppo": 4,
+    "market_proved_halim": 0,
     "log_path": "halim/data/coevolution/correction_log.jsonl"
   },
   "export": {
     "ok": true,
-    "added": 4248,
-    "total": 4248,
-    "events": 4802,
+    "added": 534,
+    "total": 534,
+    "events": 5374,
     "rewritten": true
   },
-  "cycles": 29,
+  "cycles": 46,
   "dialogue_export": {
     "ok": true,
-    "pairs": 4966,
-    "dialogue_lines": 2483,
+    "pairs": 5166,
+    "dialogue_lines": 2583,
     "rewritten": true
   }
 }
