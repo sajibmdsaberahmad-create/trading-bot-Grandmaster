@@ -10,6 +10,23 @@
 
 ---
 
+## 2026-06-30 — War replay ledger isolation (code)
+
+### Problem
+Replay sessions could still increment live `round_trips_today` when `REPLAY_RELAX_WAR=false`; git sync committed the journal before guards shipped.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/war_account.py` | `is_replay_session()`; replay always disables war; `save_state`/`_append_ledger` no-op; `reset_live_war_session()` |
+
+### Verify
+```bash
+REPLAY_LIVE=true python3 -c "from core.war_account import war_account_enabled; assert not war_account_enabled()"
+```
+
+---
+
 ## 2026-06-30 — Halim live entry ship + replay API budgets
 
 ### Problem
@@ -36,6 +53,27 @@ Missing live await + echo parser; verdict dict dropped blend stamps; `brain_matu
 ```bash
 rg "Halim entry fresh|\\+halim\\+" logs/REPLAY_SCALPER.log | tail -20
 ./scripts/monitor_replay_health.sh
+```
+
+---
+
+## 2026-06-30 — Replay cannot touch live war ledger + session reset
+
+### Problem
+Overnight replay incremented `round_trips_today` to 18 on the live war account, blocking paper entries after user had stopped HANOON before prior close. `REPLAY_RELAX_WAR=false` could re-enable war during replay.
+
+### Root cause
+War ledger only skipped when `REPLAY_RELAX_WAR=true`; replay exits could still call `save_state` / `record_exit` if env toggled. Stale session state persisted on disk.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/war_account.py` | `is_replay_session()`; replay always disables war; `save_state`/`_append_ledger` no-op in replay; `reset_live_war_session()` |
+
+### Verify
+```bash
+python3 -c "from core.config import BotConfig; from core.war_account import reset_live_war_session, is_replay_session; print(reset_live_war_session(BotConfig(), reason='verify'))"
+REPLAY_LIVE=true python3 -c "from core.war_account import war_account_enabled; print(war_account_enabled())"
 ```
 
 ---
