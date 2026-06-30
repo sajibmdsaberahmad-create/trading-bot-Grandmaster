@@ -9,6 +9,98 @@
 **Enforced:** `scripts/git-hooks/pre-commit` blocks commits that touch `core/`, `halim/halim/`, `scripts/*.sh`, or `.cursor/rules/` without a new dated section here. Install: `./scripts/install_git_hooks.sh`. Cursor `afterFileEdit` hook reminds agents. Emergency bypass: `SKIP_FIX_JOURNAL=1` (document ASAP).
 
 ---
+## 2026-06-30 — War AI sizing (full pool deploy, advisory bullets)
+
+### Problem
+With `AI_UNLIMITED_MODE` / full AI control, war entries were still capped to mechanical bullet slices (~$437 = $3500/8). AI could not deploy the full war pool for profit hunting; `bullets_left` blocked entries even when settled cash remained.
+
+### Root cause
+`_entry_deploy_cap`, `rescale_decision_for_war`, and `get_ai_deploy_budget` used `min(bullet, settled)`; `war_bullets_remaining` counted settled//bullet slices as hard trip limits.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/war_account.py` | `war_ai_sizing_enabled()`; full settled deploy cap; trip block = pool dry only |
+| `core/pilot_mode.py` | War deploy budget = full settled (minus reserve) under AI sizing |
+| `core/smart_stack.py` | Skip mechanical bullet-left posture bumps when AI sizing |
+| `scripts/start_hanoon.sh` | `WAR_AI_SIZING=true`, `WAR_CASH_RESERVE_PCT=0.05` |
+
+### Env vars
+```bash
+WAR_AI_SIZING=true          # default on with AI_UNLIMITED / AI_FULL_CAPITAL_ACCESS
+WAR_CASH_RESERVE_PCT=0.05   # small cash buffer; rest deployable per AI decision
+WAR_BULLETS=8               # advisory session budget for AI context, not slice size
+```
+
+### Verify
+```bash
+python3 -m pytest tests/test_war_account_rth.py -q
+# war_context_line shows deploy_cap=$3,325 bullets_advisory=8/8
+```
+
+---
+
+## 2026-06-30 — IB fill sync hardening (entry+exit P&L from broker)
+
+### Problem
+User audit: ensure entry/exit fills and per-trade P&L come from IB executions, not quote estimates, and bot NAV stays aligned with IB NetLiquidation.
+
+### Root cause
+`build_close_record` used slot entry only; exit reconcile did not re-check BOT executions; `bot_nav` was recalculated from internal cash mid-loop even when `REQUIRE_IB_FILL_SYNC=true`; post-trade account values were not refreshed from IB immediately.
+
+### Fix
+| File | Change |
+|------|--------|
+| `core/fill_reconciler.py` | `resolve_entry_from_ib`; IB commission on fills; net P&L with commission |
+| `core/fill_tracker.py` | `round_trip_pnl(..., commission=)` |
+| `core/scalper_exit_executor.py` | IB-only `_build_trade_close_record`; refresh account after finalize |
+| `core/scalper_entry_executor.py` | Refresh IB account after entry fill |
+| `core/scalper_runner.py` | Skip internal NAV recalc when IB sync on |
+| `scripts/start_hanoon.sh` | Export `IB_FILL_FORCE_SEC` |
+| `tests/test_fill_reconciler.py` | Strict + confirmed fill tests |
+
+### Env vars
+```bash
+REQUIRE_IB_FILL_SYNC=true
+IB_FILL_STRICT=true
+IB_FILL_FORCE_SEC=120
+```
+
+### Verify
+```bash
+python3 -m pytest tests/test_fill_reconciler.py tests/test_fill_tracker.py -q
+# Live: entry log `✅ IB entry confirmed`; exit `📕 EXIT (IB fill)`; Day P&L matches IB account change
+```
+
+---
+
+## 2026-06-30 — Monolith split: scalper_runner, ai_commander, git_sync learning
+
+### Problem
+`scalper_runner.py` (~8.8k), `ai_commander.py` (~3.2k), and `git_sync.py` (~2.5k) were unmaintainable monoliths. An earlier auto-sync pass left broken `git_sync_*` submodules and overwrote `commander_learning.py` (telegram guidance) with an AICommander mixin.
+
+### Root cause
+- AST mixin extraction removed the `class ScalperRunner(...)` line until script was fixed.
+- Mixin module `commander_learning.py` collided with existing `load_commander_guidance()` / `run_commander_learning_cycle()` module used by `telegram_listener`.
+- Full `git_sync` state-module split introduced invalid `global S._repo` and circular imports.
+
+### Files
+- `core/scalper_runner.py` + `core/scalper_exit_executor.py`, `scalper_entry_executor.py`, `scalper_session.py`, `scalper_spike_loop.py`
+- `core/ai_commander.py` + `core/ai_commander_verdict.py`, `ai_commander_deferred.py`, `ai_commander_entry.py`, `ai_commander_exit.py`
+- `core/commander_learning.py` — restored as standalone guidance module (not a mixin)
+- `core/git_sync.py` + `core/git_sync_learning.py` (learning restore/push only; push/commit/routing remain in monolith)
+- `scripts/extract_scalper_mixins.py`, `scripts/extract_ai_commander_mixins.py`
+
+### Env vars
+None.
+
+### Verify
+```bash
+python3 -c "from core.scalper_runner import ScalperRunner; from core.ai_commander import AICommander; from core.commander_learning import GUIDANCE_PATH; from core import git_sync"
+python3 -m pytest tests/ -q
+```
+
+---
 
 ## 2026-06-30 — Balance-driven war trips (settled cash, not fixed cap)
 
