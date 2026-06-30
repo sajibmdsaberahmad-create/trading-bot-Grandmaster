@@ -1,8 +1,8 @@
 {
-  "last_train": "2026-06-30T08:40:18.707983+00:00",
-  "proxy_accuracy": 0.9508196721311475,
-  "proxy_samples": 303,
+  "last_train": "2026-06-30T10:02:41.290681+00:00",
+  "proxy_accuracy": 0.9846153846153847,
+  "proxy_samples": 321,
   "fast_path": true,
-  "updated_at": "2026-06-30T08:40:18.709314+00:00",
+  "updated_at": "2026-06-30T10:02:41.292076+00:00",
   "closed_trade_count": 2676
 }
